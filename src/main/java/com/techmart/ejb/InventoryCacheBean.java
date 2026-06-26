@@ -29,6 +29,7 @@ import java.util.logging.Logger;
  */
 @Singleton
 @Startup
+@LocalBean
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class InventoryCacheBean implements InventoryService {
 

@@ -104,7 +104,7 @@ public class ProductServiceBean implements ProductService {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<ProductDTO> findAll(int page, int size) {
         return em.createNamedQuery("Product.findAll", Product.class)
             .setFirstResult(page * size)
@@ -116,7 +116,7 @@ public class ProductServiceBean implements ProductService {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<ProductDTO> findByCategory(Long categoryId, int page, int size) {
         return em.createNamedQuery("Product.findByCategory", Product.class)
             .setParameter("categoryId", categoryId)
