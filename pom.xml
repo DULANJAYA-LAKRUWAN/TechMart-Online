@@ -33,7 +33,8 @@
         <logback.version>1.4.14</logback.version>
         <rest.assured.version>5.4.0</rest.assured.version>
         <postgresql.version>42.7.1</postgresql.version>
-    <payara.version>5.2023.8</payara.version>
+        <micrometer.version>1.12.1</micrometer.version>
+        <payara.version>5.2023.8</payara.version>
     </properties>
 
     <dependencyManagement>
@@ -86,6 +87,20 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- ============================================================
+             Micrometer — Metrics Export (Prometheus)
+             ============================================================ -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+            <version>${micrometer.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>${micrometer.version}</version>
         </dependency>
 
         <!-- ============================================================

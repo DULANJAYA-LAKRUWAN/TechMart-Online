@@ -2,7 +2,9 @@ package com.techmart.rest;
 
 import com.techmart.cdi.PerformanceInterceptor;
 import com.techmart.dto.ApiResponseDTO;
+import com.techmart.metrics.MetricsRegistry;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,6 +17,9 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MonitoringResource {
+
+    @Inject
+    private MetricsRegistry metricsRegistry;
 
     @GET
     @Path("/metrics")
@@ -57,5 +62,13 @@ public class MonitoringResource {
             .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().get()));
 
         return Response.ok(ApiResponseDTO.success(slowOps, "Slow operations (>=" + threshold + "ms)")).build();
+    }
+
+    @GET
+    @Path("/prometheus")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getPrometheusMetrics() {
+        String metrics = metricsRegistry.scrape();
+        return Response.ok(metrics).build();
     }
 }
