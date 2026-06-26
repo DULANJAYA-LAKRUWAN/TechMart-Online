@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ================================================================
+         TechMart Online — Enterprise E-Commerce Platform
+         BCDI Assessment — Jakarta EE / Java EE 8
+         ================================================================ -->
+    <groupId>com.techmart</groupId>
+    <artifactId>techmart-online</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>TechMart Online</name>
+    <description>Enterprise-grade e-commerce platform built on Java EE 8 / Jakarta EE</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+
+        <!-- Dependency versions -->
+        <javaee.version>8.0.1</javaee.version>
+        <primefaces.version>12.0.0</primefaces.version>
+        <junit.version>5.10.1</junit.version>
+        <mockito.version>5.8.0</mockito.version>
+        <arquillian.version>1.7.1.Final</arquillian.version>
+        <wildfly.arquillian.version>5.0.1.Final</wildfly.arquillian.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <logback.version>1.4.14</logback.version>
+        <rest.assured.version>5.4.0</rest.assured.version>
+        <postgresql.version>42.7.1</postgresql.version>
+    <payara.version>5.2023.8</payara.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Arquillian BOM -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- JUnit 5 BOM -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- ============================================================
+             Java EE 8 API — provided by WildFly / Payara at runtime
+             ============================================================ -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ============================================================
+             PrimeFaces — JSF Component Library
+             ============================================================ -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${primefaces.version}</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+
+        <!-- ============================================================
+             PostgreSQL JDBC Driver
+             ============================================================ -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- ============================================================
+             Logging
+             ============================================================ -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- ============================================================
+             Testing — JUnit 5
+             ============================================================ -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============================================================
+             Testing — Mockito 5
+             ============================================================ -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============================================================
+             Testing — Arquillian (Integration Tests)
+             ============================================================ -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- WildFly Remote Container Adapter -->
+        <dependency>
+            <groupId>org.wildfly.arquillian</groupId>
+            <artifactId>wildfly-arquillian-container-remote</artifactId>
+            <version>${wildfly.arquillian.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============================================================
+             Testing — REST Assured (REST Integration Tests)
+             ============================================================ -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest.assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============================================================
+             Testing — Java EE Test Utilities
+             ============================================================ -->
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-impl-base</artifactId>
+            <version>1.0.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>techmart-online</finalName>
+        <plugins>
+            <!-- Maven WAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Compiler Plugin — Java 11 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.1</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Surefire — JUnit 5 unit tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**/unit/**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/integration/**</exclude>
+                        <exclude>**/jms/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Failsafe — Arquillian integration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**/integration/**/*Test.java</include>
+                        <include>**/jms/**/*Test.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.8</version>
+                <configuration>
+                    <payaraVersion>${payara.version}</payaraVersion>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <fileName>${project.artifactId}-${project.version}-micro.jar</fileName>
+                </configuration>
+            </plugin>
+            </plugins>
+    </build>
+
+    <!-- ================================================================
+         Profiles
+         ================================================================ -->
+    <profiles>
+        <!-- Unit tests only (default) -->
+        <profile>
+            <id>unit-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!-- Integration tests — requires WildFly + PostgreSQL -->
+        <profile>
+            <id>integration-tests</id>
+            <properties>
+                <wildfly.host>localhost</wildfly.host>
+                <wildfly.port>9990</wildfly.port>
+                <wildfly.user>admin</wildfly.user>
+                <wildfly.password>admin123</wildfly.password>
+            </properties>
+        </profile>
+    </profiles>
+</project>

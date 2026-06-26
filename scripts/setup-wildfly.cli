@@ -1,0 +1,65 @@
+# =============================================================================
+# TechMart Online — WildFly CLI Setup Script
+# Usage: $WILDFLY_HOME/bin/jboss-cli.sh --connect --file=setup-wildfly.cli
+# =============================================================================
+
+# ── Datasource: PostgreSQL ───────────────────────────────────────────────────
+
+# Check if driver module exists; if not, install PostgreSQL JDBC driver first:
+#   module add --name=org.postgresql --resources=postgresql-42.7.1.jar \
+#       --dependencies=javax.api,javax.transaction.api
+
+/subsystem=datasources/jdbc-driver=postgresql:add(
+    driver-name=postgresql,
+    driver-module-name=org.postgresql,
+    driver-class-name=org.postgresql.Driver,
+    driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource
+)
+
+# TechMart datasource — JTA, connection pool 5-50
+data-source add \
+    --name=TechMartDS \
+    --jndi-name=java:/jdbc/TechMartDS \
+    --driver-name=postgresql \
+    --connection-url=jdbc:postgresql://localhost:5432/techmart \
+    --user-name=techmart_app \
+    --password=techmart_pass \
+    --min-pool-size=5 \
+    --max-pool-size=50 \
+    --pool-prefill=true \
+    --idle-timeout-minutes=5 \
+    --blocking-timeout-wait-millis=5000 \
+    --check-valid-connection-sql="SELECT 1" \
+    --validate-on-match=true \
+    --jta=true \
+    --use-ccm=true
+
+# ── JMS — JMS Queue: OrderQueue ─────────────────────────────────────────────
+
+# If using built-in Artemis:
+jms-queue add \
+    --queue-address=OrderQueue \
+    --entries=["java:/jms/queue/OrderQueue"]
+
+# ── JMS — JMS Topic: NotificationTopic ───────────────────────────────────────
+
+jms-topic add \
+    --topic-address=NotificationTopic \
+    --entries=["java:/jms/topic/NotificationTopic"]
+
+# ── Logging: Performance monitoring category ─────────────────────────────────
+
+/subsystem=logging/logger=com.techmart:add(
+    level=INFO,
+    handlers=[CONSOLE,FILE]
+)
+
+# ── System Properties ────────────────────────────────────────────────────────
+
+/system-property=techmart.environment:add(value=production)
+/system-property=techmart.config.refresh.interval:add(value=300000)
+
+echo "✅ TechMart Online — WildFly setup complete."
+echo "   Datasource:  java:/jdbc/TechMartDS"
+echo "   Order Queue: java:/jms/queue/OrderQueue"
+echo "   Topic:       java:/jms/topic/NotificationTopic"

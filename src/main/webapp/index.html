@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMart Online</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background: #f5f7fa; color: #333; }
+        .container { max-width: 900px; margin: 50px auto; padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+        h1 { color: #2563eb; margin-bottom: 8px; }
+        .subtitle { color: #64748b; font-size: 1.1em; }
+        .status { display: inline-block; padding: 4px 12px; border-radius: 20px; background: #22c55e; color: #fff; font-weight: 600; font-size: 0.85em; }
+        .endpoints { margin-top: 30px; }
+        .endpoints h2 { font-size: 1.2em; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+        .endpoint { display: flex; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .method { font-weight: 700; min-width: 60px; }
+        .method.get { color: #22c55e; } .method.post { color: #3b82f6; } .method.put { color: #f59e0b; } .method.delete { color: #ef4444; }
+        .path { font-family: 'Courier New', monospace; font-size: 0.95em; color: #475569; }
+        .desc { color: #94a3b8; margin-left: auto; font-size: 0.9em; }
+        .footer { margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TechMart Online</h1>
+        <p class="subtitle">Enterprise E-Commerce Platform <span class="status">Running</span></p>
+
+        <div class="endpoints">
+            <h2>API Endpoints</h2>
+            <div class="endpoint"><span class="method get">GET</span><span class="path">/api/monitor/health</span><span class="desc">Health check</span></div>
+            <div class="endpoint"><span class="method get">GET</span><span class="path">/api/monitor/metrics</span><span class="desc">Performance metrics</span></div>
+            <div class="endpoint"><span class="method get">GET</span><span class="path">/api/users</span><span class="desc">List users</span></div>
+            <div class="endpoint"><span class="method post">POST</span><span class="path">/api/users/register</span><span class="desc">Register user</span></div>
+            <div class="endpoint"><span class="method get">GET</span><span class="path">/api/products</span><span class="desc">List products</span></div>
+            <div class="endpoint"><span class="method post">POST</span><span class="path">/api/orders</span><span class="desc">Place order</span></div>
+            <div class="endpoint"><span class="method get">GET</span><span class="path">/api/inventory/cache/stats</span><span class="desc">Cache statistics</span></div>
+            <div class="endpoint"><span class="method get">GET</span><span class="path">/api/orders/revenue/today</span><span class="desc">Today's revenue</span></div>
+        </div>
+
+        <div class="footer">
+            Built with Java EE 8 | WildFly | PostgreSQL
+        </div>
+    </div>
+</body>
+</html>

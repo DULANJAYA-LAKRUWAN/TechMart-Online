@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee
+           http://www.jboss.org/schema/jbossas/jboss-web_13_0.xsd"
+           version="13.0">
+
+    <context-root>techmart-online</context-root>
+
+    <!-- EJB references scanned automatically — no need for manual ejb-ref -->
+</jboss-web>

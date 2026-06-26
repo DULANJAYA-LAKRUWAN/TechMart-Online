@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <persistence-unit name="TechMartPU" transaction-type="JTA">
+
+        <jta-data-source>java:/jdbc/TechMartDS</jta-data-source>
+
+        <!-- Entity classes -->
+        <class>com.techmart.entity.User</class>
+        <class>com.techmart.entity.Role</class>
+        <class>com.techmart.entity.Product</class>
+        <class>com.techmart.entity.Category</class>
+        <class>com.techmart.entity.Order</class>
+        <class>com.techmart.entity.OrderItem</class>
+        <class>com.techmart.entity.Inventory</class>
+        <class>com.techmart.entity.Warehouse</class>
+        <class>com.techmart.entity.Notification</class>
+        <class>com.techmart.entity.AuditLog</class>
+
+        <properties>
+            <!-- Hibernate (WildFly / Hibernate 5.x) -->
+            <property name="hibernate.dialect"            value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.show_sql"            value="false"/>
+            <property name="hibernate.format_sql"          value="true"/>
+            <property name="hibernate.use_sql_comments"    value="true"/>
+
+            <!-- Schema: validate only — use DDL scripts for production schema -->
+            <property name="javax.persistence.schema-generation.database.action" value="validate"/>
+
+            <!-- Connection pool delegated to WildFly datasource (min/max configured via CLI) -->
+            <property name="hibernate.connection.release_mode" value="after_transaction"/>
+
+            <!-- Batch fetching for OneToMany collections (performance) -->
+            <property name="hibernate.default_batch_fetch_size" value="16"/>
+
+            <!-- Second-level cache disabled for this assessment (would need Infinispan) -->
+            <property name="hibernate.cache.use_second_level_cache"   value="false"/>
+            <property name="hibernate.cache.use_query_cache"          value="false"/>
+
+            <!-- JDBC batch size for bulk operations -->
+            <property name="hibernate.jdbc.batch_size" value="20"/>
+            <property name="hibernate.order_inserts"   value="true"/>
+            <property name="hibernate.order_updates"   value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
